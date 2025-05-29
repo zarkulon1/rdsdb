@@ -6,7 +6,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"os"
 	"time"
-	"trn"
+	"github.com/zarkulon1/fargomaths/trn"
 )
 
 /* adding to have file change */
