@@ -1,4 +1,4 @@
-module github.com/fargomaths/zarulon1/rdsdb
+module github.com/zarkulon1/rdsdb/rdsdb
 
 go 1.24.2
 
