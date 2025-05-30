@@ -232,10 +232,7 @@ func (db *RdsDb) GetRecordMap(format string, args ...interface{}) (GMap, error) 
 		for i, colName := range cols {
 			val := columnPointers[i].(*interface{})
 			if *val != nil {
-				use := (*val).([]byte)
-				if use != nil {
-					result[colName] = string(use)
-				}
+				result[colName] = fmt.Sprintf("%v",*val)
 			}
 		}
 	}
@@ -281,10 +278,7 @@ func (db *RdsDb) GetRecordMapArray(format string, args ...interface{}) ([]GMap, 
 		for i, colName := range cols {
 			val := columnPointers[i].(*interface{})
 			if *val != nil {
-				use := (*val).([]byte)
-				if use != nil {
-					m[colName] = string(use)
-				}
+				result[colName] = fmt.Sprintf("%v",*val)
 			}
 		}
 		result = append(result, m)
