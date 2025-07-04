@@ -278,7 +278,7 @@ func (db *RdsDb) GetRecordMapArray(format string, args ...interface{}) ([]GMap, 
 		for i, colName := range cols {
 			val := columnPointers[i].(*interface{})
 			if *val != nil {
-				result[colName] = fmt.Sprintf("%v",*val)
+				m[colName] = fmt.Sprintf("%v",*val)
 			}
 		}
 		result = append(result, m)
