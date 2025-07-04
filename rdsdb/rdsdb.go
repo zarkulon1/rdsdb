@@ -230,11 +230,21 @@ func (db *RdsDb) GetRecordMap(format string, args ...interface{}) (GMap, error) 
 			return nil, err
 		}
 		for i, colName := range cols {
-			val := columnPointers[i].(*interface{})
-			if *val != nil {
-				result[colName] = fmt.Sprintf("%v",*val)
-			}
-		}
+		       val := columnPointers[i].(*interface{})
+                        t := fmt.Sprintf("%T",*val)
+                        if t == "[]uint8" {
+                                str := (*val).([]byte)
+                           result[colName] = string(str)
+                        } else if t == "int64" {
+                           result[colName] = fmt.Sprintf("%d",*val)
+                        } else if t == "float64" {
+                           result[colName] = fmt.Sprintf("%f",*val)
+                        } else {
+                           result[colName] = fmt.Sprintf("%v",*val)
+                        }
+                }
+
+		
 	}
 
 	return result, nil
@@ -277,10 +287,18 @@ func (db *RdsDb) GetRecordMapArray(format string, args ...interface{}) ([]GMap, 
 		m := make(GMap)
 		for i, colName := range cols {
 			val := columnPointers[i].(*interface{})
-			if *val != nil {
-				m[colName] = fmt.Sprintf("%v",*val)
+			t := fmt.Sprintf("%T",*val)
+			if t == "[]uint8" {
+		         	str := (*val).([]byte)
+		           m[colName] = string(str)
+			} else if t == "int64" {
+			   m[colName] = fmt.Sprintf("%d",*val)
+		        } else if t == "float64" {
+			   m[colName] = fmt.Sprintf("%f",*val)
+		        } else {
+			   m[colName] = fmt.Sprintf("%v",*val)
 			}
-		}
+	        }	 
 		result = append(result, m)
 		ctr++
 	}
